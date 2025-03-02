@@ -45,9 +45,12 @@ void XK_Prefix(InitUsers)(void) {
 /* Tries a Log-In and changes the variable *loggedin to match the state */
 void XK_Prefix(TryLogin)(int *loggedin) {
 	while(0 == *loggedin) {
+		kprintln("----------------");
 		/* Lists the users */
 		XK_Prefix(ListUsers)(users, (uint32_t)UserAmount);
-		
+	
+		kprintln("----------------");
+	
 		/* Gets credentials */
 		kprint("Username: ");
 		read_word(try_username, 16, 0, 0);

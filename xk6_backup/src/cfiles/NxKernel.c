@@ -30,6 +30,7 @@
 #include <jitrix/pit_sound.h>
 #include <jitrix/diskio.h>
 
+#include <litrix/misc.h>
 #include <litrix/xkfs.h>
 #include <litrix/users.h>
 #include <litrix/executable.h>
@@ -59,6 +60,15 @@ Task SystemX = {
 
 void Nx_Kernel(void)
 {
+	if(XK_IsComputerOn() != 1) {
+		kprintln("misc: Computer is not turned on, please turn it on");
+		asm("hlt");
+	}
+	if(XK_IsComputerOnFire() == 1) {
+		kprintln("misc: Computer is on fire, please use sand, not water");
+		asm("hlt");
+	}
+
 	klog_println("kernel: Initializing Scheduler & Multitasking");
 
 	/*

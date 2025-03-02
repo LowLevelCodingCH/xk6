@@ -80,11 +80,13 @@ Please don't sue me, Nintendo
 USERNAME (16 char)
 PASSWORD (Plain text, 16 char)
 
-There are 2 default users:
+There are 3 default users:
 	|_ Root
 	|	|_ Rootuser
 	|_ LLCCH
-		|_ Passcode
+	|	|_ Passcode
+	|_ Guest
+		|_ (No password)
 
 ### Tools
 Nitrix provides tools such as:
@@ -148,7 +150,7 @@ The data. Each block is 512 bytes long.
 ### X Kernel V6
 It is a Kernel launched by GrUB. If you get it to work in another way, cool!
 There is "multitasking" (An init function being called once on a task. the update one being called every time the main loop updates (once per <ENTER> press))
-The kernel is a Task with TID (Task IDentifier) 0. Name is ROOT
+The kernel is a Task with TID (Task IDentifier) 0. Name is SystemX
 	|_ Its init is Nx_Prefix(KernelInit)
 	|_ Its update is Nx_Prefix(KernelUpdate)
 It writes to the output (0xb8000)

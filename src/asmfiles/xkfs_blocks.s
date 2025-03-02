@@ -1,11 +1,14 @@
 user_amount:
-	db 2
+	db 3
 users: ; Users are stored in this file block
 	db "LLCCH", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; Size for username (16)
 	db "Passcode", 0, 0, 0, 0, 0, 0, 0, 0 ; Passcode (16)
+
 	db "Root", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; Size for username (16)
 	db "Rootuser", 0, 0, 0, 0, 0, 0, 0, 0 ; Passcode (16)
 
+	db "Guest", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; Size for username (16)
+	db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; Passcode (16)
 
 
 
