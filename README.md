@@ -156,7 +156,7 @@ The kernel is a Task with TID (Task IDentifier) 0. Name is SystemX
 It writes to the output (0xb8000)
 It handles ATA I/O
 It is NOT UNIX. NOT EVEN SIMMILAR
-It has built-in commands such as `"call <ADDRESS>" "rfd <FILE>" "cat <FILE>" "ls" "kill <TID>" "cbeep <FREQ> <DUR>" "ps" "clear" "echo <ARGS..>" "rdram <FROM> <TO>" "lsusnr"`
+It has built-in commands such as `"call <ADDRESS>" "rfd <FILE>" "cat <FILE>" "ls" "kill <TID>" "cbeep <FREQ> <DUR>" "ps" "clear" "echo <ARGS..>" "rdram <FROM> <TO>" "lsusrs"`
 It uses a custom init system named SystemX
 
 ### SystemX
