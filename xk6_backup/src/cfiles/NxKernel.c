@@ -26,8 +26,8 @@ int __stack_chk_fail_local = 0;
 int __GLOBAL_OFFSET_TABLE_ = 0;
 int __GLOBAL_OFFSET_TABLE  = 0;
 
-//#define KPLTW
-/*    |_ Kernel Print Log Then Wait */
+/* Prints log then halts */
+//#define __Kernel_Print_Log_Then_Halt__
 
 #include <nitrix/std.h>
 #include <nitrix/task.h>
@@ -88,7 +88,7 @@ void Nx_Kernel(void)
 
     /* _glob_tasks[0] is a reference to RootTask */
 
-    #ifdef KPLTW   
+    #ifdef __Kernel_Print_Log_Then_Halt__ 
         /* For debugging the logs */
         asm("hlt");
     #endif
