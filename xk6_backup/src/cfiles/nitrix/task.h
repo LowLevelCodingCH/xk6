@@ -2,7 +2,7 @@
 void XK_Prefix(AllocatePage)(HANDLE *handle, WORD amount) {
     handle->pam += amount;
     handle->adr = (&(XK_Prefix(MemoryPool))+
-    	XK_Prefix(NextFreePage));
+        XK_Prefix(NextFreePage));
     XK_Prefix(NextFreePage) += amount;
 }
 

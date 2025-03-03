@@ -36,7 +36,9 @@ typedef char *va_list;
 #define TASK_RUNNING_FLAG 1
 #define TASK_FOREVER_FLAG -1
 
-#define BASE_END_ALL 26484
+/* Either 60816 or 26484*/
+
+#define BASE_END_ALL 60816
 
 #define MAX_TASK_AMOUNT 16
 
@@ -184,7 +186,7 @@ int cnt = 0;
 char try_username[16] = {0};
 char try_passcode[16] = {0};
 char user[16] = {0};
-char logged_in = 0;
+int logged_in = 0;
 
 int cursor = 0;
 int lcursor = 0;
@@ -192,6 +194,14 @@ int lcursor = 0;
 FILE XK_Prefix(FileDescriptors)[128];
 UNS(char) XK_Prefix(MemoryPool)[PAGESIZE*PAGEAMOUNT];
 UNS(int) XK_Prefix(NextFreePage) = 0;
+
+XKFS_Header XKFS;
+FST_Entry FST_Entries[256];
+FST_Header FST;
+byte_t FileSysHeader[512] = {0};
+byte_t FST_Blocks[256][512] = {0};
+byte_t FileSegmentTableHeader[512] = {0};
+byte_t FileSegmentTableEntries[512*8] = {0};
 
 sound startup_beep = {
 		.pitch = 440,

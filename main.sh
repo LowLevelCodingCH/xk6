@@ -23,7 +23,7 @@ echo kernel
 gcc -ffreestanding -m32 -g -c "src/cfiles/NxKernel.c" -o "Binaries/NxKernel.o" -Isrc/cfiles
 
 echo link
-i386-elf-ld -T "src/linker.ld" -o "Binaries/Nx/OS.o" Binaries/interrupts.o "Binaries/boot.o" "Binaries/NxKernel.o"
+ld -melf_i386 -T "src/linker.ld" -o "Binaries/Nx/OS.o" Binaries/interrupts.o "Binaries/boot.o" "Binaries/NxKernel.o"
 
 echo dd
 dd if=/dev/zero of=Binaries/Nx/OS.img bs=512 count=2880

@@ -1,6 +1,7 @@
 # X Kernel V6
 ## The sixth version of my 10th attempt at OsDev.
 #### A(nother) LLCCH-Project
+#### I use arch btw
 ### Versions:
 ```
 NitrixBootLD (1)  (Bootsector only)      // Availible on github. Not same name
@@ -26,6 +27,7 @@ You may ask: `But why did you stop on all these, especially xk5?`
 My answer: `I moved to nixos and the WM didn't work, I removed it. I wanted the TTY black and it didn't work. This is a fresh start.`
 UPDATE: `I moved back to Linux Mint and will likely install Arch. Arch's qemu supports all that so I'll add another WM. But XK5's code was horrible anyways.` (2 weeks later)
 UPDATE: `I did install Arch. I USE ARCH BTW. But osdev will stay at linux mint` (1 week later)
+UPDATE: `Yay it works on arch (or should I say, paru it works on arch (ok this was horrible)). Anyways I'll stay on arch!` (1 week later)
 
 You may ask: `Will you stay with XK(V)?`
 My answer: `Yes I likely will. The X doesn't mean nitriX. But 10 in the roman numerals. Once I get to v20, I'll do Nx(V). Just for fun.`
@@ -42,8 +44,8 @@ My answer: `No, I code until 1 am CET.`
 
 ### Dependencies
 #### I will try to make this work with 64-BIT so you don't have to install all this, though I think it already is.
-For dear Debian users, use the script: [Setup Debian](https://github.com/mell-o-tron/MellOs/blob/main/A_Setup/setup-gcc-debian.sh)
-For the Arch users, use the script:    [Setup Arch](https://github.com/mell-o-tron/MellOs/blob/main/A_Setup/setup-gcc-arch.sh)
+For Debian users, get your Apateu (APT) to install "grub" and "gcc"
+For us Arch users aswell, install "grub gcc mtools" (mtools is important for grub)"
 For NixOS users, add this to `/etc/nixos/configuration.nix`:
 (Sound wont work because of qemu. Maybe updating or something works)
 ```
@@ -80,11 +82,9 @@ Please don't sue me, Nintendo
 USERNAME (16 char)
 PASSWORD (Plain text, 16 char)
 
-There are 3 default users:
+There are 2 default users:
 	|_ Root
 	|	|_ Rootuser
-	|_ LLCCH
-	|	|_ Passcode
 	|_ Guest
 		|_ (No password)
 
@@ -100,6 +100,11 @@ Usage is: `mkfs.xkfs <FILE NAME> <DRIVE LETTER/LABEL>`
 ### XKFS
 The X-Kernel-File-System, aka XKFS, is a file system that consists out of this structure:
 (FST = File Segment Table)
+
+It begins at LBA 26484 (my linux mint) or 60816 (my arch linux), change in nitrix/std.h `(BASE_END_ALL)` accordingly.
+To find the actual value, comment out the "xkfs" lines in the main.sh file, then run it.
+Then do "ls -l Binaries/Nx/xos.iso"
+Then divide the size by 512, then you have the LBA.
 
 XKFS-Header
 	|_ FST-Header
@@ -156,7 +161,7 @@ The kernel is a Task with TID (Task IDentifier) 0. Name is SystemX
 It writes to the output (0xb8000)
 It handles ATA I/O
 It is NOT UNIX. NOT EVEN SIMMILAR
-It has built-in commands such as `"call <ADDRESS>" "rfd <FILE>" "cat <FILE>" "ls" "kill <TID>" "cbeep <FREQ> <DUR>" "ps" "clear" "echo <ARGS..>" "rdram <FROM> <TO>" "lsusnr"`
+It has built-in commands such as `"call <ADDRESS>" "rfd <FILE>" "cat <FILE>" "ls" "kill <TID>" "cbeep <FREQ> <DUR>" "ps" "clear" "echo <ARGS..>" "rdram <FROM> <TO>" "lsusrs"`
 It uses a custom init system named SystemX
 
 ### SystemX
@@ -169,8 +174,35 @@ Simple login manager (cfiles/litrix/users.h)
 FNAME: `XK_TryLogin`
 
 ### Notes
-Please use `backup.sh` regularly to back it up, and if you want to contribute, all coding styles are allowed,
-I switch between like 100, just please test it a little.
+Please use `backup.sh` regularly to back it up.
 Use qemu for testing
 DO NOT break anything.
 I will test every pull request 10 times.
+
+### Coding Style
+4 spaces per indent.
+Inline braces.
+As I say (I am the new Göthe (if you don't know who that is, don't even try to contribute (jk))) "Spaces before braces"
+If some statement fits on the if, do it like so:
+if short
+``
+    if(COND) STATEMENT;
+``
+if long
+``
+    if(COND)
+        STATEMENT;
+``
+
+elsewise, do so:
+``
+    if(COND) {
+        STATEMENT;
+        STATEMENT;
+        STATEMENT;
+        STATEMENT;
+    }
+``
+
+Do NOT nest to deep.
+No coding style applies to Drivers (jitrix). Do whatever there.

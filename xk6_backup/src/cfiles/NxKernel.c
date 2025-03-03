@@ -14,13 +14,20 @@
      |   |    |_ DiskIO                                                                                   |
      |   |    |_ Keyboard                                                                                 |
      |   |_ When making NOTEs, please do it like this.                                                    |
-	 |   |_ Doesn't work on Windows since the crosscompilers and QEMU versions are not good.              |
-	 |   |_ I will try to make it work on Windows though                                                  |
+     |   |_ Doesn't work on Windows since the crosscompilers and QEMU versions are not good.              |
+     |   |_ I will try to make it work on Windows though                                                  |
      |----------------------------------------------------------------------------------------------------|
 */
 
+/* I do not know why, but this is important, otherwise it will not work! */
+int __stack_chk_fail_local = 0;
+
+/* Maybe your compiler needs this, mine once errored this (not anymore btw), so I'll put it here too */
+int __GLOBAL_OFFSET_TABLE_ = 0;
+int __GLOBAL_OFFSET_TABLE  = 0;
+
 //#define KPLTW
-/*	|_ Kernel Print Log Then Wait */
+/*    |_ Kernel Print Log Then Wait */
 
 #include <nitrix/std.h>
 #include <nitrix/task.h>
@@ -48,61 +55,61 @@
 /* Like SystemD or OpenRC, it is an init system */
 
 Task SystemX = {
-	.running = TASK_RUNNING_FLAG,        // Runs    (If it runs or not)
-	.length  = TASK_FOREVER_FLAG,        // Forever (-1: Forever. Everything else is the length of the task in ticks)
-	.current_tick = 0,                   // Tick    (What SystemTick it is right now, to know when to exit)
-	.name = "SystemX",                   // Name    (Name)
-	.hasupdate = 1,                      // Unused  (Was meant to tell if it has an update function)
-	.update = &Nx_KernelUpdate,          // Update  (Called every tick)     (cfiles/nitrix/kerneltask.h)
-	.init = &Nx_KernelInit,              // Init    (Called once)           (cfiles/nitrix/kerneltask.h)
-	.exists = TASK_EXIST_FLAG            // Exists  (TASK_EXIST_FLAG = 121. To prevent from NULL from being executed. If this isn't here, bugs are hard to find, it happened, trust me)
+    .running = TASK_RUNNING_FLAG,        // Runs    (If it runs or not)
+    .length  = TASK_FOREVER_FLAG,        // Forever (-1: Forever. Everything else is the length of the task in ticks)
+    .current_tick = 0,                   // Tick    (What SystemTick it is right now, to know when to exit)
+    .name = "SystemX",                   // Name    (Name)
+    .hasupdate = 1,                      // Unused  (Was meant to tell if it has an update function)
+    .update = &Nx_KernelUpdate,          // Update  (Called every tick)     (cfiles/nitrix/kerneltask.h)
+    .init = &Nx_KernelInit,              // Init    (Called once)           (cfiles/nitrix/kerneltask.h)
+    .exists = TASK_EXIST_FLAG            // Exists  (TASK_EXIST_FLAG = 121. To prevent from NULL from being executed. If this isn't here, bugs are hard to find, it happened, trust me)
 };
 
 void Nx_Kernel(void)
 {
-	if(XK_IsComputerOn() != 1) {
-		kprintln("misc: Computer is not turned on, please turn it on");
-		asm("hlt");
-	}
-	if(XK_IsComputerOnFire() == 1) {
-		kprintln("misc: Computer is on fire, please use sand, not water");
-		asm("hlt");
-	}
+    if(XK_IsComputerOn() != 1) {
+        kprintln("misc: Computer is not turned on, please turn it on");
+        asm("hlt");
+    }
+    if(XK_IsComputerOnFire() == 1) {
+        kprintln("misc: Computer is on fire, please use sand, not water");
+        asm("hlt");
+    }
 
-	klog_println("kernel: Initializing Scheduler & Multitasking");
+    klog_println("kernel: Initializing Scheduler & Multitasking");
 
-	/*
-	  	Appends the SystemX task to the tasklist (Task* _glob_tasks[16])
-	   	If it becomes more complex, please add error handling.
-	*/
+    /*
+          Appends the SystemX task to the tasklist (Task* _glob_tasks[16])
+          If it becomes more complex, please add error handling.
+    */
 
-	klog_println("kernel: Initializing SystemX");
-	XK_InitializeScheduler(&SystemX);
+    klog_println("kernel: Initializing SystemX");
+    XK_InitializeScheduler(&SystemX);
 
-	/* _glob_tasks[0] is a reference to RootTask */
+    /* _glob_tasks[0] is a reference to RootTask */
 
-	#ifdef KPLTW   
-		/* For debugging the logs */
-		asm("hlt");
-	#endif
+    #ifdef KPLTW   
+        /* For debugging the logs */
+        asm("hlt");
+    #endif
 
-	clear();
+    clear();
 
-	/* Trying a log-in*/
+    /* Trying a log-in*/
 
-	XK_TryLogin(&logged_in);
+    XK_TryLogin(&logged_in);
 
-	while (1 == XK_IsRunning(0)) {
-		/* Steps one tick */
-		XK_SystemTick();
-		XK_StepTasks();
-	}
+    while (1 == XK_IsRunning(0)) {
+        /* Steps one tick */
+        XK_SystemTick();
+        XK_StepTasks();
+    }
 
-	klog_println("kernel: Kernel stopped.");
+    klog_println("kernel: Kernel stopped.");
 
-	/* Stops interrupts, then halts and has a for loop at the end */
+    /* Stops interrupts, then halts and has a for loop at the end */
 
-	asm("cli");
-	asm("hlt");
-	for(;;){}
+    asm("cli");
+    asm("hlt");
+    for(;;){}
 }

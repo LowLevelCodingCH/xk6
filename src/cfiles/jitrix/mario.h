@@ -21,12 +21,12 @@ BYTE inb(WORD port) {
 }
 
 static inline void outl(uint16_t port, uint32_t value) {
-	asm("outl %%eax, %%dx" :: "d" (port), "a" (value));
+    asm("outl %%eax, %%dx" :: "d" (port), "a" (value));
 }
 
 static inline uint32_t inl(uint16_t port) {
-	uint32_t ret;
-	asm("inl %1, %0" : "=a" (ret) : "dN" (port));
-	return ret;
+    uint32_t ret;
+    asm("inl %1, %0" : "=a" (ret) : "dN" (port));
+    return ret;
 }
 
