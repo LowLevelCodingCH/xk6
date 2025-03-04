@@ -43,8 +43,10 @@ void XK_Prefix(InitUsers)(void) {
 }
 
 /* Tries a Log-In and changes the variable *loggedin to match the state */
-void XK_Prefix(TryLogin)(int *loggedin) {
+void XK_Prefix(TryLogin)(int *loggedin, int showtimeanddate) {
     while(0 == *loggedin) {
+        if(1 == showtimeanddate) XK_PrintTimeAndDate();
+
         kprintln("----------------");
         /* Lists the users */
         XK_Prefix(ListUsers)(users, (uint32_t)UserAmount);
@@ -60,6 +62,8 @@ void XK_Prefix(TryLogin)(int *loggedin) {
         kprint("Passcode: ");
         read_word(try_passcode, 16, ssize("Username: ") + ssize(try_username), 0);
         
+        if(1 == showtimeanddate) XK_PrintTimeAndDate();
+
         /* Looks up the user that the user gave us (confusing I know) */
         for(int i = 0; i < (uint32_t)UserAmount; i++) {
             if(streq(try_username,users[i].name)==0 &&

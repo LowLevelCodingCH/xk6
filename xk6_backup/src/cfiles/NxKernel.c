@@ -12,6 +12,7 @@
      |   |    |_ PIT Sound                                                                                |
      |   |    |_ Users                                                                                    |
      |   |    |_ DiskIO                                                                                   |
+     |   |    |_ CMOS Time                                                                                |
      |   |    |_ Keyboard                                                                                 |
      |   |_ When making NOTEs, please do it like this.                                                    |
      |   |_ Doesn't work on Windows since the crosscompilers and QEMU versions are not good.              |
@@ -38,13 +39,13 @@ int __GLOBAL_OFFSET_TABLE  = 0;
 #include <jitrix/diskio.h>
 #include <jitrix/cmos.h>
 
+#include <litrix/time.h>
 #include <litrix/misc.h>
 #include <litrix/xkfs.h>
 #include <litrix/users.h>
 #include <litrix/executable.h>
 #include <litrix/syscalls.h>
 #include <litrix/scheduler.h>
-#include <litrix/time.h>
 
 #include <nitrix/idt.h>
 #include <nitrix/kerneltask.h>
@@ -99,7 +100,8 @@ void Nx_Kernel(void)
 
     /* Trying a log-in*/
 
-    XK_TryLogin(&logged_in);
+    XK_PrintTimeAndDate();
+    XK_TryLogin(&logged_in, 1);
 
     while (1 == XK_IsRunning(0)) {
         /* Steps one tick */
