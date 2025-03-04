@@ -35,7 +35,7 @@ if grub-file --is-x86-multiboot Binaries/Nx/OS.o; then
 	mkdir -p isodir/boot/grub
 	
 	echo cp
-	cp Binaries/Nx/OS.img isodir/boot/xos.img
+	cp Binaries/Nx/OS.img isodir/boot/xos.elf32
 	cp grub.cfg isodir/boot/grub/grub.cfg
 
 	echo grubmkres

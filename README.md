@@ -206,3 +206,10 @@ elsewise, do so:
 
 Do NOT nest to deep.
 No coding style applies to Drivers (jitrix). Do whatever there.
+
+### CoolLoadingBar
+nitrix/std.h
+CoolLoadingBar        // The togglable bar
+CoolLoadingBarDelay   // The one that always is there (for beauty)
+CoolLoadingBarDelayFF // The togglable bar
+If you want a cool loading bar

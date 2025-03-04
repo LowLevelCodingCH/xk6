@@ -75,9 +75,26 @@ void XK_Prefix(SystemExecuteShellCommand(char command[16][50], int count)) {
     }
 }
 
+void XK_Prefix(LoadingBarForLookingCool)(int stat) {
+    _glob_color = VGA_COLOR_LIGHT_GREY;
+    clear();
+    for(int i = 0; i < 10; i++)
+        kputln(0);
+    _glob_color = VGA_COLOR_LIGHT_CYAN;
+    kprintln("-----------------------------XKOS Initializing----------------------------------");
+    _glob_color = VGA_COLOR_WHITE;
+    for(int i = 0; i < stat; i++)
+        kputc('X');
+    for(int i = 0; i < 80 - stat; i++)
+        kputc('-');
+    _glob_color = VGA_COLOR_LIGHT_CYAN;
+    kprintln("--------------------------------------------------------------------------------");
+    _glob_color = VGA_COLOR_LIGHT_GREY;
+}
+
 /* Runs on every tick */
 void Nx_Prefix(KernelUpdate)(void) {
-    _glob_color = 0x07;
+    _glob_color = VGA_COLOR_LIGHT_GREY;
     
     XK_Prefix(ReadXKFS)();
     
@@ -108,23 +125,84 @@ void Nx_Prefix(KernelUpdate)(void) {
 
 /* Initializes everything that the OS needs */
 void Nx_Prefix(KernelInit)(void) {
+
+    #ifdef CoolLoadingBar
+        for(int i = 0; i < 80; i++) {
+            XK_LoadingBarForLookingCool(i);
+            wait_ms(CoolLoadingBarDelayFF);
+        }
+        kprintln("Faster than Arch Linux");
+        wait_ms(1100);
+        clear();
+    #endif
+
+    clear();
+
     _glob_color = VGA_COLOR_LIGHT_GREY;
     
-    klog_println("kernel: Initializing AtA");
+    //klog_println("kernel: Initializing AtA");
+
+
+    XK_LoadingBarForLookingCool(0);
+    wait_ms(CoolLoadingBarDelay);
+
+
     init_ata();
-    klog_println("kernel: Initializing XKFS");
+    //klog_println("kernel: Initializing XKFS");
+
+
+    XK_LoadingBarForLookingCool(8);
+    wait_ms(CoolLoadingBarDelay);
+    XK_LoadingBarForLookingCool(16);
+    wait_ms(CoolLoadingBarDelay);
+
+
     XK_InitXKFS();
-    klog_println("kernel: Writing to disk will likely not work!");
-    klog_println("kernel: Initializing PiT");
+    //klog_println("kernel: Writing to disk will likely not work!");
+    //klog_println("kernel: Initializing PiT");
+
+
+    XK_LoadingBarForLookingCool(24);
+    wait_ms(CoolLoadingBarDelay);
+    XK_LoadingBarForLookingCool(32);
+    wait_ms(CoolLoadingBarDelay);
+
+
     init_pit(12);
-    klog_println("kernel: Initializing FDs");
+    //klog_println("kernel: Initializing FDs");
+
+
+    XK_LoadingBarForLookingCool(40);
+    wait_ms(CoolLoadingBarDelay);
+    XK_LoadingBarForLookingCool(48);
+    wait_ms(CoolLoadingBarDelay);
+
+
     XK_FileDescriptors[0] = OUTMEM;
     XK_FileDescriptors[1] = TTY_Begin;
-    klog_println("kernel: Initializing Users");
+    //klog_println("kernel: Initializing Users");
+
+
+    XK_LoadingBarForLookingCool(56);
+    wait_ms(CoolLoadingBarDelay);
+    XK_LoadingBarForLookingCool(64);
+    wait_ms(CoolLoadingBarDelay);
+
+
     XK_InitUsers();	
-    klog_println("kernel: Initializing IDT");
+    //klog_println("kernel: Initializing IDT");
+
+
+    XK_LoadingBarForLookingCool(72);
+    wait_ms(CoolLoadingBarDelay);
+    XK_LoadingBarForLookingCool(80);
+    wait_ms(CoolLoadingBarDelay);
+
+
     init_idt();
-    
+
+    clear();
+
     klog_println("kernel: Testing Sound");
     XK_PlayS(startup_beep);
     

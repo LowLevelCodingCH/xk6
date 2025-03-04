@@ -51,7 +51,7 @@ int streq(const char *s1, const char *s2) {
 
 void kputc(char c) {
     *(char*)(0xb8000+cursor)=c;
-    *(char*)(0xb8000+cursor-1)=_glob_color;
+    *(char*)(0xb8000+cursor+1)=_glob_color;
     update_cursor();
 }
 

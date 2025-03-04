@@ -46,11 +46,12 @@ void XK_Prefix(RemoveTask)(uint32_t tind) {
     _glob_amount--;
 }
 
-/* Steps one tick for the task */
+/* Steps one tick for the task (I know this code is hard to navigate, I'll likely make a video on this) */
 void XK_Prefix(TaskStep)(uint32_t index) {
     if(_glob_tasks[index]->exists != TASK_EXIST_FLAG) return;
     _glob_tasks[index]->current_tick++;
-    if(_glob_tasks[index]->length != -1 && _glob_tasks[index]->current_tick >= _glob_tasks[index]->length)
+    if(_glob_tasks[index]->length != TASK_FOREVER_FLAG &&
+    _glob_tasks[index]->current_tick >= _glob_tasks[index]->length)
         XK_RemoveTask(index);
     _glob_tasks[index]->update();
 }

@@ -84,6 +84,8 @@ typedef char *va_list;
 #define STATUS_DF		0x20
 #define STATUS_ERR	  0x01
 
+//#define CoolLoadingBar
+#define CoolLoadingBarDelay 2500
 
 enum vga_colour {
 	VGA_COLOR_BLACK = 0,
