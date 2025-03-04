@@ -53,7 +53,6 @@ void lsusrs(void) {
     XK_Prefix(ListUsers)(users, (int)UserAmount);
 }
 
-
 /* Executes a shell command with a count and command */
 void XK_Prefix(SystemExecuteShellCommand(char command[16][50], int count)) {
     if(streq(command[0],"echo")==0)       echo(command, count);
@@ -95,8 +94,10 @@ void XK_Prefix(LoadingBarForLookingCool)(int stat) {
 /* Runs on every tick */
 void Nx_Prefix(KernelUpdate)(void) {
     _glob_color = VGA_COLOR_LIGHT_GREY;
-    
-    XK_Prefix(ReadXKFS)();
+
+    XK_PrintTimeAndDate();
+
+    XK_ReadXKFS();
     
     kprint(user);
     kputc('/');
@@ -110,7 +111,7 @@ void Nx_Prefix(KernelUpdate)(void) {
     
     /* Executes the command */
 
-    XK_Prefix(SystemExecuteShellCommand(cmdbuffer, cnt));
+    XK_SystemExecuteShellCommand(cmdbuffer, cnt);
     
     clearBuffer(buffer, 50);
     for(int i = 0; i < 16; i++) clearBuffer(cmdbuffer[i], 50);

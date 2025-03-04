@@ -85,7 +85,36 @@ typedef char *va_list;
 #define STATUS_ERR	  0x01
 
 //#define CoolLoadingBar
-#define CoolLoadingBarDelay 2500
+#define CoolLoadingBarDelay 3000
+
+/* Time and date  copied from wiki.osdev.org */
+#define CURRENT_YEAR        2025                            // Change this each year! (original: 2023)
+int century_register = 0x00;                                // Set by ACPI table parsing code if possible
+
+unsigned char century;
+unsigned char curr_second;
+unsigned char curr_minute;
+unsigned char curr_hour;
+unsigned char curr_day;
+unsigned char curr_month;
+unsigned char curr_year;
+unsigned char curr_century;
+unsigned char registerB;
+
+unsigned char second;
+unsigned char minute;
+unsigned char hour;
+unsigned char day;
+unsigned char month;
+unsigned int year;
+
+#define in_byte(P) inb(P)
+#define out_byte(P,V) outb(P,V)
+
+enum {
+      cmos_address = 0x70,
+      cmos_data    = 0x71
+};
 
 enum vga_colour {
 	VGA_COLOR_BLACK = 0,
@@ -189,6 +218,26 @@ char try_username[16] = {0};
 char try_passcode[16] = {0};
 char user[16] = {0};
 int logged_in = 0;
+
+unsigned char century;
+unsigned char curr_second;
+unsigned char curr_minute;
+unsigned char curr_hour;
+unsigned char curr_day;
+unsigned char curr_month;
+unsigned char curr_year;
+unsigned char curr_century;
+unsigned char registerB;
+
+unsigned char century;
+unsigned char last_second;
+unsigned char last_minute;
+unsigned char last_hour;
+unsigned char last_day;
+unsigned char last_month;
+unsigned char last_year;
+unsigned char last_century;
+unsigned char registerB;
 
 int cursor = 0;
 int lcursor = 0;

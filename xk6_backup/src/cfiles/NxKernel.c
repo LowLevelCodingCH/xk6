@@ -36,6 +36,7 @@ int __GLOBAL_OFFSET_TABLE  = 0;
 #include <jitrix/textkb.h>
 #include <jitrix/pit_sound.h>
 #include <jitrix/diskio.h>
+#include <jitrix/cmos.h>
 
 #include <litrix/misc.h>
 #include <litrix/xkfs.h>
@@ -43,6 +44,7 @@ int __GLOBAL_OFFSET_TABLE  = 0;
 #include <litrix/executable.h>
 #include <litrix/syscalls.h>
 #include <litrix/scheduler.h>
+#include <litrix/time.h>
 
 #include <nitrix/idt.h>
 #include <nitrix/kerneltask.h>
