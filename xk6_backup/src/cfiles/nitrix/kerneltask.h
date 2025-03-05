@@ -154,7 +154,7 @@ void Nx_Prefix(KernelInit)(void) {
 
         _glob_color = VGA_COLOR_LIGHT_GREY;
 
-        wait_ms(10000);
+        wait_ms(100000);
         clear();
     }
 

@@ -84,8 +84,9 @@ typedef char *va_list;
 #define STATUS_DF		0x20
 #define STATUS_ERR	  0x01
 
-//#define CoolLoadingBar
-#define CoolLoadingBarDelay 3000
+#define CoolLoadingBar
+#define CoolLoadingBarDelay   3000
+#define CoolLoadingBarDelayFF 1500
 
 /* Time and date  copied from wiki.osdev.org */
 #define CURRENT_YEAR        2025                            // Change this each year! (original: 2023)
@@ -238,6 +239,15 @@ unsigned char last_month;
 unsigned char last_year;
 unsigned char last_century;
 unsigned char registerB;
+
+char usersfile[16] = "XK$USERS";
+
+/* Defines a 512 char long Users string */
+char UsersStr[512] = {0};
+char UserAmount = 0;
+
+/* Space for 4 users */
+User users[4] = {0};
 
 int cursor = 0;
 int lcursor = 0;

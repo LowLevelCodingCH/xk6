@@ -1,10 +1,3 @@
-/* Defines a 512 char long Users string */
-char UsersStr[512] = {0};
-char UserAmount = 0;
-
-/* Space for 4 users */
-User users[4] = {0};
-
 /* Lists the users via the users struct and amount */
 void XK_Prefix(ListUsers)(User _users[4], int _amount) {
     for(int i = 0; i < _amount; i++)
@@ -16,7 +9,7 @@ void XK_Prefix(InitUsers)(void) {
     klog_println("users: Reading users file");
     
     /* Reads the users file into a string */
-    XK_ReadFile(FST_Entries, FST_Blocks, "XK$USERS", UsersStr);
+    XK_ReadFile(FST_Entries, FST_Blocks, usersfile, UsersStr);
     UserAmount = UsersStr[0];
     
     /* Errors if no user was found, then halts */

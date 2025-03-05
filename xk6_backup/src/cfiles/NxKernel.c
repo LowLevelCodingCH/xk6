@@ -14,6 +14,7 @@
      |   |    |_ DiskIO                                                                                   |
      |   |    |_ CMOS Time                                                                                |
      |   |    |_ Keyboard                                                                                 |
+     |   |    |_ My moms birthday                                                                         |
      |   |_ When making NOTEs, please do it like this.                                                    |
      |   |_ Doesn't work on Windows since the crosscompilers and QEMU versions are not good.              |
      |   |_ I will try to make it work on Windows though                                                  |
@@ -99,6 +100,7 @@ void Nx_Kernel(void) {
 
     /* Trying a log-in*/
 
+    read_rtc();
     XK_PrintTimeAndDate();
     XK_TryLogin(&logged_in, 1);
 
