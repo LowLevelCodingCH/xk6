@@ -1,7 +1,7 @@
 /* Prints the time and date */
 void XK_Prefix(PrintTimeAndDate)() {
     int c = cursor; // push
-    cursor = 63 * 2;
+    cursor = ((63 * 31) + 30) * 2;
     read_rtc();
     kprint(itoa(hour));
     kputc(':');

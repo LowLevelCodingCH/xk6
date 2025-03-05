@@ -68,8 +68,7 @@ Task SystemX = {
     .exists = TASK_EXIST_FLAG            // Exists  (TASK_EXIST_FLAG = 121. To prevent from NULL from being executed. If this isn't here, bugs are hard to find, it happened, trust me)
 };
 
-void Nx_Kernel(void)
-{
+void Nx_Kernel(void) {
     if(XK_IsComputerOn() != 1) {
         kprintln("misc: Computer is not turned on, please turn it on");
         asm("hlt");

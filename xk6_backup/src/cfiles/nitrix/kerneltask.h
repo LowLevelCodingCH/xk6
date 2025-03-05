@@ -96,6 +96,18 @@ void XK_Prefix(LoadingBarForLookingCool)(int stat) {
 void Nx_Prefix(KernelUpdate)(void) {
     _glob_color = VGA_COLOR_LIGHT_GREY;
 
+    read_rtc();
+
+    /* Birthday for my mom */
+    if(month == 3 && day == 5) {
+        int c = cursor;
+        cursor = ((80 - 20) * 32) * 2;
+        _glob_color = VGA_COLOR_RED;
+        kprint("Mama hat geburtstag!!");
+        _glob_color = VGA_COLOR_LIGHT_GREY;
+        cursor = c;
+    }
+
     XK_PrintTimeAndDate();
 
     XK_ReadXKFS();
@@ -127,6 +139,24 @@ void Nx_Prefix(KernelUpdate)(void) {
 
 /* Initializes everything that the OS needs */
 void Nx_Prefix(KernelInit)(void) {
+    read_rtc();
+
+    /* Birthday for my mom */
+    if(month == 3 && day == 5) {
+        clear();
+        for(int i = 0; i < 10; i++)
+            kputln(0);
+
+        _glob_color = VGA_COLOR_RED;
+        kprint("MAMA ");
+        _glob_color = VGA_COLOR_LIGHT_GREEN;
+        kprint("HAT GEBURTSTAG!!!!");
+
+        _glob_color = VGA_COLOR_LIGHT_GREY;
+
+        wait_ms(10000);
+        clear();
+    }
 
     #ifdef CoolLoadingBar
         for(int i = 0; i < 80; i++) {
