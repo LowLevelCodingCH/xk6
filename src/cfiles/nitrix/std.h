@@ -252,6 +252,10 @@ User users[4] = {0};
 int cursor = 0;
 int lcursor = 0;
 
+char env_user[16];
+char env_root[16] = "/";
+char env_home[16] = "/";
+
 FILE XK_Prefix(FileDescriptors)[128];
 UNS(char) XK_Prefix(MemoryPool)[PAGESIZE*PAGEAMOUNT];
 UNS(int) XK_Prefix(NextFreePage) = 0;

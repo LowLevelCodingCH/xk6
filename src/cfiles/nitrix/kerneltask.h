@@ -53,24 +53,37 @@ void lsusrs(void) {
     XK_Prefix(ListUsers)(users, (int)UserAmount);
 }
 
+void printenv(void) {
+    kprint("$user = ");
+    kprint(env_user);
+    kputln(ssize("$user = ") + ssize(env_user));
+    kprint("$root = ");
+    kprint(env_root);
+    kputln(ssize("$root = ") + ssize(env_root));
+    kprint("$home = ");
+    kprint(env_home);
+    kputln(ssize("$home = ") + ssize(env_home));
+}
+
 /* Executes a shell command with a count and command */
 void XK_Prefix(SystemExecuteShellCommand(char command[16][50], int count)) {
-    if(streq(command[0],"echo")==0)       echo(command, count);
+    if(streq(command[0],"echo")==0)         echo(command, count);
     if(count == 1) {
-        if(streq(command[0],"clear")==0)  clear();
-        if(streq(command[0],"ps")==0)     ps(command, count);
-        if(streq(command[0],"ls")==0)     ls(command, count);
-        if(streq(command[0],"lsusrs")==0) lsusrs();
+        if(streq(command[0],"clear")==0)    clear();
+        if(streq(command[0],"ps")==0)       ps(command, count);
+        if(streq(command[0],"ls")==0)       ls(command, count);
+        if(streq(command[0],"printenv")==0) printenv();
+        if(streq(command[0],"lsusrs")==0)   lsusrs();
     }
     if(count == 2) {
-        if(streq(command[0],"call")==0)   call(command, count);
-        if(streq(command[0],"kill")==0)   kill(command, count);
-        if(streq(command[0],"cat")==0)    cat(command, count);   
-        if(streq(command[0],"rfd")==0)    rfd(command, count);
+        if(streq(command[0],"call")==0)     call(command, count);
+        if(streq(command[0],"kill")==0)     kill(command, count);
+        if(streq(command[0],"cat")==0)      cat(command, count);   
+        if(streq(command[0],"rfd")==0)      rfd(command, count);
     }
     if(count == 3) {
-        if(streq(command[0],"cbeep")==0)  cbeep(command, count);
-        if(streq(command[0],"rdram")==0)  rdram(command, count);
+        if(streq(command[0],"cbeep")==0)    cbeep(command, count);
+        if(streq(command[0],"rdram")==0)    rdram(command, count);
     }
 }
 
@@ -94,6 +107,10 @@ void XK_Prefix(LoadingBarForLookingCool)(int stat) {
 
 /* Runs on every tick */
 void Nx_Prefix(KernelUpdate)(void) {
+    for(int i = 0; i < 16; i++) {
+        env_user[i] = user[i];
+    }
+
     _glob_color = VGA_COLOR_LIGHT_GREY;
 
     read_rtc();
