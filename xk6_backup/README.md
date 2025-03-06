@@ -213,3 +213,8 @@ CoolLoadingBar        // The togglable bar
 CoolLoadingBarDelay   // The one that always is there (for beauty)
 CoolLoadingBarDelayFF // The togglable bar
 If you want a cool loading bar
+
+### Environment Variables
+$user = username
+$home = user home (root)
+$root = root (/)
