@@ -257,6 +257,34 @@ void read_word(char *buffer, const int buffer_size, int addedsz, int backspace_l
     kputc('\n');
 }
 
+void read_word_passcode(char *buffer, const int buffer_size, int addedsz, int backspace_limit) {
+    int index = 0;
+    int in = index;
+    char c;
+    int ct;
+
+    while (index < buffer_size - 1) {
+        c = read_char(&ct);
+
+        if (c == '\n') {
+            buffer[index] = '\0';
+            kputln(ssize(buffer)+addedsz);
+            return;
+        } else if (c == 0x05 && index > backspace_limit) {
+            index--;
+            sub_cursor();
+            kputc(' ');
+            sub_cursor();
+        } else if (c >= ' ' && c <= '~') {
+            buffer[index++] = c;
+            kputc('*');
+        }
+    }
+
+    buffer[index] = '\0';
+    kputc('\n');
+}
+
 
 // JoshuaFarmer/NovaOS and JoshuaFarmer/OSA86 (make up like 50% of DEES NU- drivers. i mean drivers)
 // MODIFIED

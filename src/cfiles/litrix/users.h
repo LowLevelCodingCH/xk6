@@ -53,7 +53,7 @@ void XK_Prefix(TryLogin)(int *loggedin, int showtimeanddate) {
         set_cursor(get_cursor() - (ssize("Username: ")*2));
         
         kprint("Passcode: ");
-        read_word(try_passcode, 16, ssize("Username: ") + ssize(try_username), 0);
+        read_word_passcode(try_passcode, 16, ssize("Username: ") + ssize(try_username), 0);
         
         if(1 == showtimeanddate) XK_PrintTimeAndDate();
 

@@ -10,7 +10,7 @@ mkdir Nx/Kernel
 mkdir Nx/Boot
 
 echo loader
-gcc -ffreestanding -m32 -g -c src/asmfiles/boot.s -o Binaries/boot.o
+gcc -Wall -Wextra -Werror -ffreestanding -m32 -g -c src/asmfiles/boot.s -o Binaries/boot.o
 nasm -f elf32 "src/asmfiles/interrupts.s" -o "Binaries/interrupts.o"
 
 echo filesys

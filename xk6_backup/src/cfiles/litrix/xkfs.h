@@ -38,21 +38,27 @@ void XK_Prefix(ReadFileData)(FST_Entry entries[256], byte_t blocks[256][512], FI
     kprintbuf(entry->name, 16);
     kputln(16);
 
+    int toputln;
+
     kprintln("Blocks");
     for(int i = 0; i < 16; i++) {
         kprint(itoa((unsigned int)entry->blocks[i]));
         kputc(',');
+        toputln+=(1+ssize(itoa((unsigned int)entry->blocks[i])));
     }
 
     kputln(16*2);
+    toputln = 0;
 
     kprintln("Block Sizes");
     for(int i = 0; i < 16; i++) {
         kprint(itoa((unsigned int)entry->size[i]));
         kputc(',');
+        toputln+=(1+ssize(itoa((unsigned int)entry->blocks[i])));
     }
 
     kputln(16*2);
+    toputln = 0;
 
     kprintln("Entry Number");
     kprintln(itoa(fd));
