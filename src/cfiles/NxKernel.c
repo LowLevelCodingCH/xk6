@@ -1,9 +1,5 @@
-int __stack_chk_fail_local = 0;
-int __GLOBAL_OFFSET_TABLE_ = 0;
-int __GLOBAL_OFFSET_TABLE  = 0;
-
+#include <errorprev.h>
 #include <settings.h>
-
 #include <xkstd.h>
 
 Task SystemX = {
