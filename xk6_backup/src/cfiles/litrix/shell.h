@@ -26,7 +26,7 @@ void kill(char command[16][50], int count) {
 }
 
 void cat(char command[16][50], int count) {
-XK_Prefix(ReadXKFS)();
+    XK_Prefix(ReadXKFS)();
     int idx = XK_Prefix(GetFileIndex)(FST_Entries, FST.files_amount, command[1]);
     if(idx != -1)
         XK_Prefix(ReadFileByIndexPrint)(FST_Entries, FST_Blocks, idx);
@@ -65,25 +65,30 @@ void printenv(void) {
     kputln(ssize("$home = ") + ssize(env_home));
 }
 
+void timedatectl(void) {
+    XK_PrintTimeAndDateStd();
+}
+
 /* Executes a shell command with a count and command */
 void XK_Prefix(SystemExecuteShellCommand(char command[16][50], int count)) {
-    if(streq(command[0],"echo")==0)         echo(command, count);
+    if(streq(command[0],"echo")==0)            echo(command, count);
     if(count == 1) {
-        if(streq(command[0],"clear")==0)    clear();
-        if(streq(command[0],"ps")==0)       ps(command, count);
-        if(streq(command[0],"ls")==0)       ls(command, count);
-        if(streq(command[0],"printenv")==0) printenv();
-        if(streq(command[0],"lsusrs")==0)   lsusrs();
+        if(streq(command[0],"clear")==0)       clear();
+        if(streq(command[0],"ps")==0)          ps(command, count);
+        if(streq(command[0],"ls")==0)          ls(command, count);
+        if(streq(command[0],"printenv")==0)    printenv();
+        if(streq(command[0],"timedatectl")==0) timedatectl();
+        if(streq(command[0],"lsusrs")==0)      lsusrs();
     }
     if(count == 2) {
-        if(streq(command[0],"call")==0)     call(command, count);
-        if(streq(command[0],"kill")==0)     kill(command, count);
-        if(streq(command[0],"cat")==0)      cat(command, count);   
-        if(streq(command[0],"rfd")==0)      rfd(command, count);
+        if(streq(command[0],"call")==0)        call(command, count);
+        if(streq(command[0],"kill")==0)        kill(command, count);
+        if(streq(command[0],"cat")==0)         cat(command, count);   
+        if(streq(command[0],"rfd")==0)         rfd(command, count);
     }
     if(count == 3) {
-        if(streq(command[0],"cbeep")==0)    cbeep(command, count);
-        if(streq(command[0],"rdram")==0)    rdram(command, count);
+        if(streq(command[0],"cbeep")==0)       cbeep(command, count);
+        if(streq(command[0],"rdram")==0)       rdram(command, count);
     }
 }
 

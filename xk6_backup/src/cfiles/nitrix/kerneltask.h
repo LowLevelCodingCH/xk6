@@ -18,8 +18,6 @@ void Nx_Prefix(KernelUpdate)(void) {
         cursor = c;
     }
 
-    XK_PrintTimeAndDate();
-
     XK_ReadXKFS();
     
     kprint(user);

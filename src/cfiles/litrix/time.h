@@ -16,9 +16,7 @@ void XK_Prefix(PrintTimeAndDate)() {
 }
 
 /* Prints time and date at a location */
-void XK_Prefix(PrintTimeAndDateAt)(int l) {
-    int c = cursor; // push
-    cursor = l;
+void XK_Prefix(PrintTimeAndDateStd)() {
     read_rtc();
     kprint(itoa(hour));
     kputc(':');
@@ -29,5 +27,5 @@ void XK_Prefix(PrintTimeAndDateAt)(int l) {
     kprint(itoa(month));
     kputc('.');
     kprint(itoa(year));
-    cursor = c; // pop
+    kputln(ssize(itoa(year))+ssize(itoa(month))+ssize(itoa(day))+ssize(itoa(hour))+ssize(itoa(minute))+4);
 }
