@@ -9,35 +9,35 @@ void echo(char command[16][50], int count) {
 }
 
 void ls(char command[16][50], int count) {
-    XK_Prefix(ReadXKFS)();
-    XK_Prefix(ListFiles)(FST_Entries);
+    XK_ReadXKFS();
+    XK_ListFiles(FST_Entries);
 }
 
 void ps(char command[16][50], int count) {
-    XK_Prefix(ListTasks)();
+    XK_ListTasks();
 }
 
 void call(char command[16][50], int count) {
-    XK_Prefix(CallAddress)(atoi(command[1]));
+    XK_CallAddress(atoi(command[1]));
 }
 
 void kill(char command[16][50], int count) {
-    XK_Prefix(RemoveTask)(atoi(command[1]));
+    XK_RemoveTask(atoi(command[1]));
 }
 
 void cat(char command[16][50], int count) {
-    XK_Prefix(ReadXKFS)();
-    int idx = XK_Prefix(GetFileIndex)(FST_Entries, FST.files_amount, command[1]);
+    XK_ReadXKFS();
+    int idx = XK_GetFileIndex(FST_Entries, FST.files_amount, command[1]);
     if(idx != -1)
-        XK_Prefix(ReadFileByIndexPrint)(FST_Entries, FST_Blocks, idx);
+        XK_ReadFileByIndexPrint(FST_Entries, FST_Blocks, idx);
     else kprintln("[io::xkfs] No such file");
 }
 
 void rfd(char command[16][50], int count) {
-    XK_Prefix(ReadXKFS)();
-    int idx = XK_Prefix(GetFileIndex)(FST_Entries, FST.files_amount, command[1]);
+    XK_ReadXKFS();
+    int idx = XK_GetFileIndex(FST_Entries, FST.files_amount, command[1]);
     if(idx != -1)
-        XK_Prefix(ReadFileData)(FST_Entries, FST_Blocks, idx);
+        XK_ReadFileData(FST_Entries, FST_Blocks, idx);
     else kprintln("[io::xkfs] No such file");
 }
 
@@ -50,7 +50,7 @@ void rdram(char command[16][50], int count) {
 }
 
 void lsusrs(void) {
-    XK_Prefix(ListUsers)(users, (int)UserAmount);
+    XK_ListUsers(users, (int)UserAmount);
 }
 
 void printenv(void) {
@@ -69,10 +69,15 @@ void timedatectl(void) {
     XK_PrintTimeAndDateStd();
 }
 
+void exit(void) {
+    XK_RemoveTask(0);
+}
+
 /* Executes a shell command with a count and command */
 void XK_Prefix(SystemExecuteShellCommand(char command[16][50], int count)) {
     if(streq(command[0],"echo")==0)            echo(command, count);
     if(count == 1) {
+        if(streq(command[0],"exit")==0)        exit();
         if(streq(command[0],"clear")==0)       clear();
         if(streq(command[0],"ps")==0)          ps(command, count);
         if(streq(command[0],"ls")==0)          ls(command, count);

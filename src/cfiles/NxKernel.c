@@ -31,7 +31,7 @@ void Nx_Kernel(void) {
         XK_StepTasks();
     }
 
-    klog_println("kernel: Kernel stopped.");
+    klog_println("kernel: Kernel stopped. Shut down.");
 
     asm("hlt");
 }
