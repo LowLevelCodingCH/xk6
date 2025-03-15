@@ -16,6 +16,8 @@
 
 /* My libraries for xk*/
 
+#include <litrix/kpanic.h>
+#include <litrix/mem.h>
 #include <litrix/time.h>
 #include <litrix/misc.h>
 #include <litrix/xkfs.h>

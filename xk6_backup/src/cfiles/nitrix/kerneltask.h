@@ -1,5 +1,5 @@
 /* Runs on every tick */
-void Nx_Prefix(KernelUpdate)(void) {
+void Nx_Prefix(KernelUpdate)(Stack* self) {
     for(int i = 0; i < 16; i++) {
         env_user[i] = user[i];
     }
@@ -46,7 +46,7 @@ void Nx_Prefix(KernelUpdate)(void) {
 }
 
 /* Initializes everything that the OS needs */
-void Nx_Prefix(KernelInit)(void) {
+void Nx_Prefix(KernelInit)(Stack* self) {
     read_rtc();
 
     /* Birthday for my mom */

@@ -12,7 +12,7 @@ mkdir Nx/Kernel
 mkdir Nx/Boot
 
 echo loader
-gcc -Wall -Wextra -Werror -ffreestanding -m32 -g -c src/asmfiles/boot.s -o Binaries/boot.o
+gcc -nostdlib -nodefaultlibs -Wall -Wextra -Werror -ffreestanding -m32 -g -c src/asmfiles/boot.s -o Binaries/boot.o
 nasm -f elf32 "src/asmfiles/interrupts.s" -o "Binaries/interrupts.o"
 
 echo filesys
@@ -22,7 +22,7 @@ nasm -fbin -o Binaries/xkfs.bin src/asmfiles/xkfs.s
 nasm -fbin -o Binaries/xkfs_blocks.bin src/asmfiles/xkfs_blocks.s
 
 echo kernel
-gcc -ffreestanding -m32 -g -c "src/cfiles/NxKernel.c" -o "Binaries/NxKernel.o" -Isrc/cfiles
+gcc -nostdlib -nodefaultlibs -ffreestanding -m32 -g -c "src/cfiles/NxKernel.c" -o "Binaries/NxKernel.o" -Isrc/cfiles
 
 echo link
 ld -melf_i386 -T "src/linker.ld" -o "Binaries/Nx/OS.o" Binaries/interrupts.o "Binaries/boot.o" "Binaries/NxKernel.o"

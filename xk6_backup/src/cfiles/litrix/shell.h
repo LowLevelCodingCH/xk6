@@ -25,6 +25,10 @@ void kill(char command[16][50], int count) {
     XK_RemoveTask(atoi(command[1]));
 }
 
+void killall(void) {
+    XK_RemoveAllTasks();
+}
+
 void cat(char command[16][50], int count) {
     XK_ReadXKFS();
     int idx = XK_GetFileIndex(FST_Entries, FST.files_amount, command[1]);
@@ -82,6 +86,7 @@ void XK_Prefix(SystemExecuteShellCommand(char command[16][50], int count)) {
         if(streq(command[0],"ps")==0)          ps(command, count);
         if(streq(command[0],"ls")==0)          ls(command, count);
         if(streq(command[0],"printenv")==0)    printenv();
+        if(streq(command[0],"killall")==0)     killall();
         if(streq(command[0],"timedatectl")==0) timedatectl();
         if(streq(command[0],"lsusrs")==0)      lsusrs();
     }

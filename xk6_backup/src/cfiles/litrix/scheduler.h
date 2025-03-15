@@ -22,7 +22,7 @@ void XK_Prefix(AppendTask)(Task *task) {
         klog_print("scheduler: Attached Task: ");
         kprintbuf(task->name, 32);
         kputln(ssize("scheduler: Attached Task: ") + 32 + 17);
-        task->init();
+        task->init(&_glob_tasks[_glob_amount]->stack);
     }
     else {
         klog_println("scheduler: Too many tasks. Kill one.");
@@ -46,18 +46,18 @@ void XK_Prefix(RemoveTask)(uint32_t tind) {
     _glob_amount--;
 }
 
-/* Steps one tick for the task (I know this code is hard to navigate, I'll likely make a video on this) */
+/* Steps one tick for the task (I know this code is hard to navigate) */
 void XK_Prefix(TaskStep)(uint32_t index) {
     if(_glob_tasks[index]->exists != TASK_EXIST_FLAG) return;
-    _glob_tasks[index]->current_tick++;
     if(_glob_tasks[index]->length != TASK_FOREVER_FLAG &&
     _glob_tasks[index]->current_tick >= _glob_tasks[index]->length)
         XK_RemoveTask(index);
-    _glob_tasks[index]->update();
+    _glob_tasks[index]->update(&_glob_tasks[index]->stack);
+    _glob_tasks[index]->current_tick++;
 }
 
 /* Steps one tick for all the tasks */
-void XK_Prefix(StepTasks)() {
+void XK_Prefix(StepTasks)(void) {
     for(int i = 0; i < _glob_amount; i++)
         XK_TaskStep(i);
 }
@@ -66,6 +66,15 @@ void XK_Prefix(StepTasks)() {
 void XK_Prefix(InitializeScheduler)(Task *roottask) {
     klog_println("scheduler: Initializing Root Task");
     XK_AppendTask(roottask);
+}
+
+/* Kills all tasks beginning from the last one (tail) */
+void XK_Prefix(RemoveAllTasks)(void) {
+    for(int i = _glob_amount - 1; i > 0; i++)
+        XK_RemoveTask(i);
+#ifdef REMOVE_ROOT_TASK_TOO
+    XK_RemoveTask(0);
+#endif
 }
 
 /* Looks at a task and tells if it is running or not */

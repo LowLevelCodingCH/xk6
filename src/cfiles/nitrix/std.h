@@ -33,10 +33,6 @@ typedef char *va_list;
 #define TASK_RUNNING_FLAG 1
 #define TASK_FOREVER_FLAG -1
 
-/* Either 60816 or 26484*/
-
-#define BASE_END_ALL 60816
-
 #define NULL           ((void*)(0))
 
 #define vector(T,N) typedef struct N {T *values;size_t size;} N;
@@ -83,6 +79,22 @@ typedef char *va_list;
 #define CURRENT_YEAR        2025                            // Change this each year! (original: 2023)
 int century_register = 0x00;                                // Set by ACPI table parsing code if possible
 
+uint32_t pageptr = 0 + PAGE_BASE;
+
+/* Either 60816 or 26484*/
+
+#define the
+#define The
+#define integer int
+#define named 
+#define is 
+#define equal =
+#define to 
+#define number unsigned int
+#define period ;
+
+The number BASE_END_ALL is equal to 60816 period
+
 unsigned char century;
 unsigned char curr_second;
 unsigned char curr_minute;
@@ -107,6 +119,20 @@ enum {
       cmos_address = 0x70,
       cmos_data    = 0x71
 };
+
+typedef enum {
+    FALSE = 0,
+    TRUE  = 1,
+} BOOL;
+
+typedef enum {
+    FAULT_KILLROOT,
+    FAULT_PAGEFAULT,
+    FAULT_CRIT_PROCESS_DIED,
+    FAULT_INVALID_CTL,        // Needs explaination, here: if a ctl function (xkfsctl, ...) fail.
+    FAULT_INVALID_FS,
+    FAULT_UNKNOWN,
+} ERROR_CODE;
 
 enum vga_colour {
 	VGA_COLOR_BLACK = 0,
@@ -163,15 +189,19 @@ typedef struct {
 } regs_t;
 
 typedef struct {
+	uint8_t stack[8192];
+} Stack;
+
+typedef struct {
 	char running;
 	char exists;
 	int length;
 	char hasupdate;
 	int current_tick;
 	char name[32];
-	void (*update)(void);
-	void (*init)(void);
-	uint8_t stack[8192];
+	void (*update)(Stack*);
+	void (*init)(Stack*);
+	Stack stack;
 } Task;
 
 typedef struct {

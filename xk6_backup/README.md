@@ -102,7 +102,7 @@ The X-Kernel-File-System, aka XKFS, is a file system that consists out of this s
 (FST = File Segment Table)
 
 It begins at LBA 26484 (my linux mint) or 60816 (my arch linux), change in nitrix/std.h `(BASE_END_ALL)` accordingly.
-To find the actual value, comment out the "xkfs" lines in the main.sh file, then run it.
+To find the actual value, comment out the "xkfs" lines in the main file, then run it.
 Then do "ls -l Binaries/Nx/xos.iso"
 Then divide the size by 512, then you have the LBA.
 
@@ -161,7 +161,7 @@ The kernel is a Task with TID (Task IDentifier) 0. Name is SystemX
 It writes to the output (0xb8000)
 It handles ATA I/O
 It is NOT UNIX. NOT EVEN SIMMILAR
-It has built-in commands such as `"call <ADDRESS>" "rfd <FILE>" "cat <FILE>" "ls" "kill <TID>" "cbeep <FREQ> <DUR>" "ps" "clear" "echo <ARGS..>" "rdram <FROM> <TO>" "lsusrs" "printenv" "timedatectl" "exit"`
+It has built-in commands such as `"call <ADDRESS>" "rfd <FILE>" "cat <FILE>" "ls" "kill <TID>" "cbeep <FREQ> <DUR>" "ps" "clear" "echo <ARGS..>" "rdram <FROM> <TO>" "lsusrs" "printenv" "timedatectl" "exit" "killall"`
 It uses a custom init system named SystemX
 
 ### SystemX

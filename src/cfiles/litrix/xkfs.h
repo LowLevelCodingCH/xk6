@@ -25,7 +25,7 @@ void XK_Prefix(ReadFileByIndex)(FST_Entry entries[256], byte_t blocks[256][512],
             for(int k = 0; k < entries[i].size[j]; k++) {
                 int blockid = (unsigned int)entries[i].blocks[j]-1;
 
-                where[k] = blocks[blockid][k]; // kputc. no where flag.
+                where[k] = blocks[blockid][k];
             }
         }
     }
@@ -103,16 +103,7 @@ void XK_Prefix(InitXKFS)() {
     klog_println("xkfs: Verifying XKFS-Header");
 
     if(XKFS.XKFS_Label[0] != 'X' || XKFS.XKFS_Label[1] != 'K' || XKFS.XKFS_Label[2] != 'F' || XKFS.XKFS_Label[3] != 'S') {
-        clear();
-        klog_println("xkfs: FAILED TO VERIFY XKFS-Header.");
-        klog_print("xkfs: Got: ");
-        kputc(XKFS.XKFS_Label[0]);
-        kputc(XKFS.XKFS_Label[1]);
-        kputc(XKFS.XKFS_Label[2]);
-        kputc(XKFS.XKFS_Label[3]);
-        kprint(", instead of XKFS");
-        asm("hlt");
-        for(;;){;};
+        XK_Panic("xkfs: XKFS signature is NOT \"XKFS\"", FAULT_INVALID_FS, FALSE);
     } 
 
     klog_println("xkfs: Assigning File Segment Table (FST)");
