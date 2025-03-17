@@ -28,6 +28,9 @@
 #include <litrix/loadingbar.h>
 #include <litrix/shell.h>
 
+/* External libraries for xk made by myself */
+#include <bitrix/bisapi.h>
+
 /* Default important */
 
 #include <nitrix/idt.h>

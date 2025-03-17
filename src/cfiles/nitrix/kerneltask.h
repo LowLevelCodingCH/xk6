@@ -168,3 +168,22 @@ void Nx_Prefix(KernelInit)(Stack* self) {
     XK_Prefix(ListTasks)();
     XK_Prefix(ListUsers)(users, (int)UserAmount);
 }
+
+void XK_Prefix(BisPrintInitialMessage)(void) {
+    BIS_STATUS init_stat = bis_init();
+
+    if(init_stat == BIS_STATUS_ALREADY_INITIALIZED)
+        ttyptr->write(ttyptr->tty, "Already Initialized TTY..", &ttyptr->cur, ssize("Already Initialized TTY"));
+    if(init_stat == BIS_STATUS_UNINITIALIZED)
+        asm("hlt");
+
+    ttyptr->clrscr(ttyptr->tty, ' ', &ttyptr->cur);
+    ttyptr->write(ttyptr->tty, "Booting XK6..", &ttyptr->cur, ssize("Booting XK6.."));
+
+    wait_ms(10000);
+
+    BIS_STATUS exit_stat = bis_exit();
+
+    if(exit_stat == BIS_STATUS_UNINITIALIZED)
+        asm("hlt");
+}

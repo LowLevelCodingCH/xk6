@@ -73,9 +73,8 @@ void XK_Prefix(ReadFile)(FST_Entry entries[256], byte_t blocks[256][512], char f
 
 /* Lists the files into stdout */
 void XK_Prefix(ListFiles)(FST_Entry entries[256]) {
-    for(int i = 0; i < 256; i++)
-        if(entries[i].name[0] != 0)
-            kprintln(entries[i].name);
+    for(int i = 0; i < FST.files_amount; i++)
+        kprintln(entries[i].name);
 }
 
 /* Reads the XK File System and logs into stdout*/
@@ -114,11 +113,16 @@ void XK_Prefix(InitXKFS)() {
             FST_Entries[i].size[j] = FileSegmentTableEntries[(i*(16+16+16))+j+16];
         for(int j = 0; j < 16; j++)
             FST_Entries[i].name[j] = FileSegmentTableEntries[(i*(16+16+16))+j+16+16];
+        kprintbuf(FST_Entries[i].name, 16);
+        kputln(16);
+        kprintln(itoa((int)FST_Entries[i].size[0]));
+        kprintln(itoa((int)FST_Entries[i].blocks[0]));
     }
     klog_print("xkfs: ");
     kprint(itoa((int)FST.files_amount));
     kprint(" files");
     kputln(17+12+ssize(itoa((int)FST.files_amount)));
+    XK_ListFiles(FST_Entries);
 }
 
 /* Reads the XK File System and doesn't log into stdout*/

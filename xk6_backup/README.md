@@ -218,3 +218,6 @@ If you want a cool loading bar
 $user = username
 $home = user home (root)
 $root = root (/)
+
+### BIS API
+A test for if my implementation of (i forgot the name) works. (Yes it kinda does)

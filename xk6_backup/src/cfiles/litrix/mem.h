@@ -2,6 +2,10 @@
 void *XK_Malloc(uint32_t size) {
     if(pageptr - size < 0)
         return NULL;
+    //if((char*)(pageptr+1) != 0)
+    //    return NULL;
+
+    clearBuffer((void*)pageptr, size);
 
     pageptr += size;
 
@@ -12,6 +16,8 @@ void *XK_Malloc(uint32_t size) {
 void XK_Free(uint32_t size) {
     if(pageptr - size < 0)
         return;
+
+    clearBuffer((void*)pageptr, size);
 
     pageptr -= size;
 }

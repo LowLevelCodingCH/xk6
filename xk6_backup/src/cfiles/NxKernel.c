@@ -5,6 +5,8 @@
 #include <libc.h>
 
 void Nx_Kernel(void) {
+    XK_BisPrintInitialMessage();
+
     clear();
 
     klog_println("kernel: Initializing Scheduler & Multitasking");

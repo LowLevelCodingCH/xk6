@@ -1,13 +1,12 @@
-//TODO: Implement syscall handling
-//TODO: Make it make a Task
-
-
-// Programs have full access to everything. Execute wisely
-
-void XK_Prefix(CallAddress)(uint32_t address) {
-    CALL(address);
+void a(void) {
+    kprintln("ha");
 }
 
-void XK_Prefix(RunExecutable)(bprgm prg) {
-    XK_Prefix(CallAddress)(prg.begin_exec);
+void b(void) {
+    kprintln("ah");
+}
+
+void XK_Prefix(ExecuteByFile)(char file[16]) {
+    struct litrix_bprm bprm;
+    return;
 }

@@ -18,7 +18,7 @@ void ps(char command[16][50], int count) {
 }
 
 void call(char command[16][50], int count) {
-    XK_CallAddress(atoi(command[1]));
+    kprintln("NO");
 }
 
 void kill(char command[16][50], int count) {

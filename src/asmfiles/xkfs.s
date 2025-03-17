@@ -4,6 +4,11 @@ fst:
 	file1: ;file
 		blocks1: db 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		sizes1:  db 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		name1:   db "xk@ushadow", 0, 0, 0, 0, 0, 0, 0, 0
+		name1:   db "xk@ushadow", 0, 0, 0, 0, 0, 0
+  file2:
+    blocks2: db 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    sizes2:  db 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    name2:   db "xk@testexec", 0, 0, 0, 0, 0
+
 
 times 4096-($-$$) db 0 ; fst can max be 4096 bytes long.. 8 sectors. 

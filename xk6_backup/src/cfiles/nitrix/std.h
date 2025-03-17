@@ -19,6 +19,8 @@ typedef char *va_list;
 #define va_arg(ap, type) \
     (((type*)((ap) = ((ap) + sizeof(type))))[-1])
 
+#define dbg kprintln(itoa(__LINE__)); asm("hlt");
+
 #define XK_Prefix(S)   XK_##S
 #define Nx_Prefix(S)   Nx_##S
 
@@ -164,10 +166,21 @@ typedef struct {
 	int ms;
 } sound;
 
-typedef struct bprgm {
+typedef struct {
 	uint32_t begin_exec;
 	uint32_t end_exec;
 } bprgm;
+
+struct litrix_bprm {
+    char name[16];
+    char* code;
+    void (*_start)(void);
+};
+
+typedef struct {
+    void (*__begin)(void);
+    char name[16];
+} prgm;
 
 typedef enum {
 	SYS_WRITE,
