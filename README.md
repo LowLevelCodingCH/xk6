@@ -1,4 +1,5 @@
 # X Kernel V6
+# DISCONTINUED
 ## The sixth version of my 10th attempt at OsDev.
 #### A(nother) LLCCH-Project
 #### I use arch btw
@@ -19,7 +20,7 @@ xk2          (12) (Bootsector & "Kernel")
 xk3          (13) (Bootsector & Kernel)
 xk4          (14) (Bootsector & "Kernel")
 xk5          (15) (Bootsector & Kernel & Simple WM)   // Availible on github
-xk6          (16) (Work in progress) (Bootsector (GrUB) & Kernel & Shell (TTY) & File System & (Likely) a Simple WM)
+xk6          (16) (Bootsector (GrUB) & Kernel & Shell (TTY) & File System & (Likely) a Simple WM)
 ```
 
 ### Q&A:
